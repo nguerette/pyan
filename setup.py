@@ -62,8 +62,6 @@ try:
                 v = expr.value
                 if type(v) is ast.Constant:
                     version = v.value
-                elif type(v) is ast.Str:  # TODO: Python 3.8: remove ast.Str
-                    version = v.s
                 break
 except FileNotFoundError:
     pass

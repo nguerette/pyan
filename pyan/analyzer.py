@@ -1200,7 +1200,7 @@ class CallGraphVisitor(ast.NodeVisitor):
             return None, ast_node.attr
         else:
             # detect str.join() and similar (attributes of constant literals)
-            if isinstance(ast_node.value, (ast.Num, ast.Str)):  # TODO: other types?
+            if isinstance(ast_node.value, ast.Constant):
                 t = type(ast_node.value)
                 tn = t.__name__
                 # Create a namespace-like Node with no associated AST node.
@@ -1377,7 +1377,7 @@ class CallGraphVisitor(ast.NodeVisitor):
             # but only in a load context. (set_attribute() does not have this
             # special handling, by design.)
             #
-            if ns in ("Num", "Str"):  # TODO: other types?
+            if ns == "Constant":
                 return obj_node, self.get_node(ns, attr_name, None, flavor=Flavor.ATTRIBUTE)
 
             # look up attr_name in the given namespace, return Node or None
