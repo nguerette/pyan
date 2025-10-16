@@ -3,7 +3,7 @@
 """Utilities for analyzer."""
 
 import ast
-import os.path
+import os
 
 from .node import Flavor
 
@@ -31,6 +31,9 @@ def get_module_name(filename, root: str = None):
     else:
         # otherwise it is the filename without extension
         module_path = filename.replace(".py", "")
+
+    if not os.path.dirname(module_path):
+        module_path = os.path.join(os.getcwd(), module_path)
 
     # find the module root - walk up the tree and check if it contains .py files - if yes. it is the new root
     directories = [(module_path, True)]
